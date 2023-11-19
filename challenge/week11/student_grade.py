@@ -1,22 +1,25 @@
 class Student():
-    kor = 0
-    math = 0
-    en = 0
+
+    def __init__(self,kor,math,en):
+        self.kor = kor
+        self.math = math
+        self.en = en
 
     def get_average(self):
         return (self.kor+self.math+self.en)/3
 
 
 def loadData():
+    write_fp = open("average.txt", "w",encoding = "utf8")
     for line in lines:
         tokens = line.strip().split(",")
-        name = Student() 
-        name.kor = float(tokens[1])
-        name.math = float(tokens[2])
-        name.en = float(tokens[3])
-        print(name.get_average())
-
+        name = tokens[0]
+        student = Student(float(tokens[1]), float(tokens[2]),float(tokens[3])) 
+        line = f"{name}의 평균 점수는 {student.get_average()}입니다."
+        print(line)
+        write_fp.write(str(line)+"\n")
         scores[str(tokens[:1])] = tuple(tokens[1:]) 
+    write_fp.close()
 
 
 
